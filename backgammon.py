@@ -16,12 +16,8 @@ def makeBoard():
 	for i in range(15):
 		x = random.randint(1, 6)
 		a[x] += 1
-	b = {}
-	for i in range(1, 7):
-		b[i] = a[i]
-	c = {}
-	for i in range(1, 7):
-		c[i] = a[i]
+	b = dict(a)
+	c = dict(a)
 	return a, b, c
 
 def empty(b):
@@ -32,11 +28,10 @@ def empty(b):
 	return ret
 
 def canfill(b, em, i):
-	ret = []
 	for x in em:
 		if x+i in range(1, 7) and b[x+i] > 0:
-			ret.append([x+i, x])
-	return ret
+			return [x+i, x]
+	return []
 
 def build(b):
 	eaten = 0
@@ -82,8 +77,8 @@ def eat(b, r):
 				em = empty(b)
 				fill = canfill(b, em, i) #body mass index lol
 				if em and fill:
-					b[fill[0][0]] -= 1
-					b[fill[0][1]] += 1
+					b[fill[0]] -= 1
+					b[fill[1]] += 1
 				else:
 					x = 6
 					while b[x] == 0:
@@ -164,6 +159,7 @@ def sim():
 		print("GAME " + str(x[3]))
 		print()
 		prettyprint(x[0])
+		print()
 		print("The rolls in the game were:")
 		for r in range(len(x[1])):
 			print("Roll " + str(r+1) + ": ", end="")
@@ -171,8 +167,6 @@ def sim():
 				print(str(i) + " ", end="")
 			print()
 		print("The build strategy beat the eat strategy by " + str(x[2]) + " move") #seems to ALWAYS be 1 so singular works
-		print()
-		print()
-		print()
-		print()
+		for x in range(4):
+			print()
 sim()
