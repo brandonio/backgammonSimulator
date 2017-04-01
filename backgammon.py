@@ -110,7 +110,7 @@ def prettyprint(b):
 	print("1 2 3 4 5 6")
 
 def sim():
-	runs = 10000
+	runs = 100000
 	unexpected = []
 	buildTotal = 0
 	eatTotal = 0
@@ -123,7 +123,7 @@ def sim():
 		roundNum = i + 1
 		a, b, c = makeBoard()
 		bMoves, brolls = build(a)
-		eMoves, rolls = eat(b, brolls)
+		eMoves, rolls = eat(b, list(brolls))
 		buildTotal += bMoves
 		eatTotal += eMoves
 		if eMoves >= bMoves:
@@ -166,7 +166,7 @@ def sim():
 			for i in x[1][r]:
 				print(str(i) + " ", end="")
 			print()
-		print("The build strategy beat the eat strategy by " + str(x[2]) + " move") #seems to ALWAYS be 1 so singular works
+		print("The build strategy beat the eat strategy by " + str(x[2]) + " move")#seems to ALWAYS be 1 so singular works
 		for x in range(4):
 			print()
 sim()
